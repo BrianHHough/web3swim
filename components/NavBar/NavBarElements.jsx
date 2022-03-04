@@ -5,7 +5,6 @@ export const NavBarCon = styled.nav`
     min-height: 78px;
     width: 100vw;
     background: var(--color-bg-navbar);
-    
     position: relative;
     display: flex;
     justify-content: space-between;
