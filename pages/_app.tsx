@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import Layout from "../components/Layout";
 import Web3Provider from "../context/Web3Context";
 import { MoralisProvider } from "react-moralis";
 
@@ -23,7 +24,9 @@ function MyApp({ Component, pageProps }: { Component: any, pageProps: any }) {
       initializeOnMount={true}
     >
       <Web3Provider>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </Web3Provider>
     </MoralisProvider>
     </>

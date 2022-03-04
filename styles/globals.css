@@ -14,3 +14,75 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* ROOT COLORS */
+/* ROOT COLORS */
+/* ROOT COLORS */
+/* ROOT COLORS */
+
+:root {
+  --c1: #141414;
+  --c2: #353131;
+  --c3: #8C8C8C;
+  --c4: #C4C4C4;
+  --cx: #FFED62;
+}
+
+/* styles/globals.css */
+
+body,
+body[data-theme="light"] {
+  --color-text-primary: #27201a;
+  --color-text-secondary: #FFED62;
+  /* --color-text-secondary: #fcf5c1; */
+  --color-bg-primary: rgb(203, 196, 196);
+
+  --color-bg-toggle: #FFED62;
+  --color-bg-navbar: #141414;
+  --color-navbar-text: #e3e3e3;
+
+  --color-bg-footer: #141414;
+  --color-footer-text: rgb(203, 196, 196);
+
+  --color-bg-search: rgb(203, 196, 196);
+  --color-search-text: #141414;
+
+  --color-bg-connectwallet: #FFED62;
+  --color-connectwallet-text: #141414;
+}
+
+body[data-theme="dark"] {
+  --color-text-primary: #e3e3e3;
+  --color-text-secondary: #FFED62;
+  --color-bg-primary: #141414;
+
+  --color-bg-toggle: #a9a9a9;
+  --color-bg-navbar: #303030;
+  --color-navbar-text: #e3e3e3;
+
+  --color-bg-footer: #141414;
+  --color-footer-text: rgb(203, 196, 196);
+
+  --color-bg-search: rgb(203, 196, 196);
+  --color-search-text: #141414;
+
+  --color-bg-connectwallet: #FFED62;
+  --color-connectwallet-text: #141414;
+}
+
+body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: sans-serif;
+  transition: background 0.25s ease-in-out;
+}
+
+h1 {
+  color: var(--color-text-secondary);
+}
+
+.blockieStyle {
+    border-radius: 50px !important;
+    top: 50%;
+    transform: translateY(10%);
+}
