@@ -13,6 +13,7 @@ import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 import PolygonMaticLogo from "../assets/polygon-matic_Logo.png"
 import Router from 'next/router'
 import UpdateIcon from '@mui/icons-material/Update';
+import Link from 'next/link';
 
 import {
   ProfileOuterCon,
@@ -148,7 +149,7 @@ export default function Profile () {
         </div>
         <div style={{display: "flex", height: "60px", marginBottom: "20px"}}>
           <h1>My handle is: </h1>
-          <h1 style={{fontWeight: "100", marginLeft: "10px"}}>@{userHan}</h1>
+          <Link href={`/streams/${userHan}`}><h1 style={{fontWeight: "100", marginLeft: "10px"}}>@{userHan}</h1></Link>
         </div>
         <FeatureBoxes>
           {streamingEnabled === true ? 
