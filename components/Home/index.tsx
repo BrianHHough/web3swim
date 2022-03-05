@@ -22,7 +22,7 @@ const HomeHero = () => {
                     width="100%"
                     height="100%"
                     controls={true}
-                    autoplay={true}
+                    autoPlay={true}
                     muted={true}
                     playing={playingFeatured}
                 >
@@ -37,7 +37,7 @@ const HomeHero = () => {
                     width="100%"
                     height="100%"
                     controls={true}
-                    autoplay={true}
+                    autoPlay={true}
                     muted={true}
                     playing={playingFeatured}
                 >
@@ -50,7 +50,7 @@ const HomeHero = () => {
                     width="100%"
                     height="100%"
                     controls={true}
-                    autoplay={true}
+                    autoPlay={true}
                     muted={true}
                     playing={playingFeatured}
                 >
@@ -63,7 +63,7 @@ const HomeHero = () => {
                     width="100%"
                     height="100%"
                     controls={true}
-                    autoplay={true}
+                    autoPlay={true}
                     muted={true}
                     playing={playingFeatured}
                 >

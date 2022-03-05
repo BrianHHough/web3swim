@@ -8,7 +8,8 @@ function Blockie(props: any): JSX.Element[] | any {
     const userAd = user?.get("ethAddress");
     const userUn = user?.get("username");
 
-    if (!props.currentWallet && !account) return <Skeleton.Avatar active size={35} />;
+    // if (!props.currentWallet && !account) return <Skeleton.Avatar active size={35} />;
+    if (user) {
     return (
         <Blockies
             seed={props.currentWallet ? 
@@ -20,7 +21,10 @@ function Blockie(props: any): JSX.Element[] | any {
             {...props}
         >
         </Blockies>
-    )
+    )}
+    else {(
+        <div></div>
+    )}
 }
 
 export default Blockie

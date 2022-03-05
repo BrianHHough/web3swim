@@ -86,3 +86,8 @@ h1 {
     top: 50%;
     transform: translateY(10%);
 }
+.blockieStyleProfile {
+  border-radius: 100px !important;
+  top: 50%;
+  transform: translateY(10%);
+}

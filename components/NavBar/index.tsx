@@ -165,22 +165,24 @@ function NavBar(): JSX.Element[] | any {
             </MetaMaskLogoCon>
           </NavItemButton>
 
-          <NavItemButtonProfile>
-            <MetaMaskLogoCon>
-              <Blockie 
-              currentWallet scale={4}
-              className="blockieStyle"
-              />
-            </MetaMaskLogoCon>
-            <NavItemText
-            >
-              {user? 
-              userAd.substring(0,6) + "..." + userAd.slice(-4)
-              : 
-              "0x0000.0000"
-            }
-            </NavItemText>
-          </NavItemButtonProfile>
+          <Link href="/profile" passHref>
+            <NavItemButtonProfile>
+              <MetaMaskLogoCon>
+                <Blockie 
+                currentWallet scale={4}
+                className="blockieStyle"
+                />
+              </MetaMaskLogoCon>
+              <NavItemText
+              >
+                {user? 
+                userAd.substring(0,6) + "..." + userAd.slice(-4)
+                : 
+                "0x0000.0000"
+              }
+              </NavItemText>
+            </NavItemButtonProfile>
+          </Link>
           </>
           }
           {/* <div>Test</div> */}
