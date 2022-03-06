@@ -40,6 +40,7 @@ import {
 } from "../components/Profile/ProfileElements";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import { Select, MenuItem, FormControl, InputLabel, makeStyles } from '@mui/material';
 
 const Home = dynamic(() => import("./index"));
 
@@ -72,6 +73,7 @@ export default function Profile () {
   const [handle, setHandle] = useState('');
   const [channelName, setChannelName] = useState('');
   const [channelDescription, setChannelDescription] = useState('');
+  const [channelTag, setChannelTag] = useState('');
   const [streamingEnabled, setStreamingEnabled] = useState();
   const [monetizationEnabled, setMonetizationEnabled] = useState();
   const [w3sTokensEarned, setW3sTokensEarned] = useState(0)
@@ -82,6 +84,7 @@ export default function Profile () {
   const userHan = user?.get("handle");
   const userChName = user?.get("channelName");
   const userChDes = user?.get("channelDescription");
+  const userChTag = user?.get("channelTag");
   // const userStreamEnabled = user?.get("streamingEnabled")
   // const userW3ST = user?.get("w3sTokensEarned")
   // console.log(userW3ST);
@@ -91,6 +94,7 @@ export default function Profile () {
   const [editingHandle, setEditingHandle] = useState(false);
   const [editingChannelName, setEditingChannelName] = useState(false);
   const [editingChannelDescription, setEditingChannelDescription] = useState(false);
+  const [editingChannelTag, setEditingChannelTag] = useState(false);
   const handleClick = () => {
     setOpen(true);
   };
@@ -119,12 +123,19 @@ export default function Profile () {
     setChannelDescription(enteredChannelDescripiton);
   };
 
+  // Edit Channel Tag
+  const inputHandler4 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const enteredChannelTag = e.target.value as string;
+    setChannelTag(enteredChannelTag);
+  };
+
   const handleSave = () => {
     setUserData({
         // email: email === "" ? undefined : email,
         handle: handle === "" ? undefined : handle,
         channelName: channelName === "" ? undefined : channelName,
-        channelDescription: channelDescription === "" ? undefined : channelDescription
+        channelDescription: channelDescription === "" ? undefined : channelDescription,
+        channelTag: channelTag === "" ? undefined : channelTag
     })
   }
 
@@ -262,7 +273,7 @@ export default function Profile () {
         </div>
 
         {/* Channel Description */}
-        <div style={{display: "flex", height: "60px", marginBottom: "20px"}}>
+        <div style={{display: "flex", height: "60px", marginBottom: "-10px"}}>
           <h4>Description: </h4>
           <h4 style={{fontWeight: "100", marginLeft: "10px"}}>
         {!editingChannelDescription ?
@@ -294,6 +305,60 @@ export default function Profile () {
                 }}
               onClick={() => {
                 setEditingChannelDescription(false);
+                handleSave();
+              }
+              }
+            />
+            }
+        </div>
+
+        {/* Channel Tag */}
+        <div style={{display: "flex", height: "60px", marginBottom: "20px"}}>
+          <h4>Tag: </h4>
+          <h4 style={{fontWeight: "100", marginLeft: "10px"}}>
+        {!editingChannelTag ?
+          <div style={{cursor: "pointer"}}>
+              {userChTag}
+          </div>
+          :
+          <FormControl style={{background: "white", width: "200px", marginTop: "-15px"}}>
+            <InputLabel>Categories</InputLabel>
+              <Select 
+              value={channelTag}
+              onChange={inputHandler4}
+              >
+                <MenuItem value={"Anime"}>Anime</MenuItem>
+                <MenuItem value={"Creative"}>Creative</MenuItem>
+                <MenuItem value={"Education"}>Education</MenuItem>
+                <MenuItem value={"Live"}>Live</MenuItem>
+                <MenuItem value={"Sports"}>Sports</MenuItem>
+                <MenuItem value={"Tech"}>Tech</MenuItem>
+              </Select>
+          </FormControl>
+          // <input 
+          //   value={userChTag}
+          //   onChange={inputHandler4}
+          //   ></input>
+          }
+          </h4>
+          {!editingChannelTag ?
+          <AppRegistrationIcon 
+            style={{
+              marginTop: "15px",
+              marginLeft: "10px",
+              cursor: "poitner"
+              }}
+            onClick={() => setEditingChannelTag(true)}
+            />
+            :
+            <CheckCircleIcon
+              style={{
+                marginTop: "24px",
+                marginLeft: "10px",
+                cursor: "poitner"
+                }}
+              onClick={() => {
+                setEditingChannelTag(false);
                 handleSave();
               }
               }
@@ -346,7 +411,7 @@ export default function Profile () {
         }
 
         </FeatureBoxes>
-        <button>Go LIVE</button>
+        {/* <button>Go LIVE</button> */}
       </Col1>
       <Col2>
       <h1>My Wallet Balance:</h1>
