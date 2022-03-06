@@ -10,9 +10,7 @@ import { useMoralis } from "react-moralis";
 import dynamic from "next/dynamic";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import PolygonMaticLogo from "../assets/polygon-matic_Logo.png"
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Router from 'next/router'
 import UpdateIcon from '@mui/icons-material/Update';
 import Link from 'next/link';
@@ -40,7 +38,6 @@ import {
 } from "../components/Profile/ProfileElements";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { Select, MenuItem, FormControl, InputLabel, makeStyles } from '@mui/material';
 
 const Home = dynamic(() => import("./index"));
 
@@ -70,10 +67,7 @@ export default function Profile () {
 
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
-  const [handle, setHandle] = useState('');
-  const [channelName, setChannelName] = useState('');
-  const [channelDescription, setChannelDescription] = useState('');
-  const [channelTag, setChannelTag] = useState('');
+  const [handle, setHandle] = useState();
   const [streamingEnabled, setStreamingEnabled] = useState();
   const [monetizationEnabled, setMonetizationEnabled] = useState();
   const [w3sTokensEarned, setW3sTokensEarned] = useState(0)
@@ -82,19 +76,12 @@ export default function Profile () {
   const userAd = user?.get("ethAddress");
   const userUn = user?.get("username");
   const userHan = user?.get("handle");
-  const userChName = user?.get("channelName");
-  const userChDes = user?.get("channelDescription");
-  const userChTag = user?.get("channelTag");
   // const userStreamEnabled = user?.get("streamingEnabled")
   // const userW3ST = user?.get("w3sTokensEarned")
   // console.log(userW3ST);
   console.log(userW3ST)
 
   const [open, setOpen] = useState(false);
-  const [editingHandle, setEditingHandle] = useState(false);
-  const [editingChannelName, setEditingChannelName] = useState(false);
-  const [editingChannelDescription, setEditingChannelDescription] = useState(false);
-  const [editingChannelTag, setEditingChannelTag] = useState(false);
   const handleClick = () => {
     setOpen(true);
   };
@@ -105,37 +92,10 @@ export default function Profile () {
     setOpen(false);
   };
 
-  // Edit Handle
-  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const enteredHandle = event.target.value;
-    setHandle(enteredHandle);
-  };
-
-  // Edit Channel Name
-  const inputHandler2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const enteredChannelName = event.target.value;
-    setChannelName(enteredChannelName);
-  };
-
-  // Edit Channel Description
-  const inputHandler3 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const enteredChannelDescripiton = event.target.value;
-    setChannelDescription(enteredChannelDescripiton);
-  };
-
-  // Edit Channel Tag
-  const inputHandler4 = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const enteredChannelTag = e.target.value as string;
-    setChannelTag(enteredChannelTag);
-  };
-
   const handleSave = () => {
     setUserData({
-        // email: email === "" ? undefined : email,
-        handle: handle === "" ? undefined : handle,
-        channelName: channelName === "" ? undefined : channelName,
-        channelDescription: channelDescription === "" ? undefined : channelDescription,
-        channelTag: channelTag === "" ? undefined : channelTag
+        email: email === "" ? undefined : email,
+        handle: handle === "" ? undefined : handle
     })
   }
 
@@ -149,7 +109,6 @@ export default function Profile () {
     // setW3sTokensEarned(user?.get("w3sTokensEarned"))
     setW3sTokensEarned(userW3ST)
   }, [user])
-
 
   if (!isAuthenticated)
   return (
@@ -182,190 +141,15 @@ export default function Profile () {
             /> 
           </VerifiedCheck>
         </BlockieCon>
-
         <div style={{display: "flex", height: "60px"}}>
           <h1>Hi, my name is: </h1>
           <h1 style={{fontWeight: "100", marginLeft: "10px"}}>
             {userAd.substring(0,6) + "..." + userAd.slice(-4)}</h1>
         </div>
-
-        {/* Edit Handle */}
-        <div style={{display: "flex", height: "60px"}}>
-          <h1>My handle is: </h1>
-          <h1 style={{fontWeight: "100", marginLeft: "10px"}}>
-        {!editingHandle ?
-          <div style={{cursor: "pointer"}}>
-            @
-            <Link href={`/streams/${userHan}`} passHref>
-              {userHan}
-            </Link>
-          </div>
-          :
-          <input 
-            value={handle}
-            onChange={inputHandler}
-            ></input>
-          }
-          </h1>
-          {!editingHandle ?
-          <AppRegistrationIcon 
-            style={{
-              marginTop: "24px",
-              marginLeft: "10px",
-              cursor: "poitner"
-              }}
-            onClick={() => setEditingHandle(true)}
-            />
-            :
-            <CheckCircleIcon
-              style={{
-                marginTop: "24px",
-                marginLeft: "10px",
-                cursor: "poitner"
-                }}
-              onClick={() => {
-                setEditingHandle(false);
-                handleSave();
-              }
-              }
-            />
-            }
-        </div>
-        
-        {/* Channel Title */}
-        <div style={{display: "flex", height: "60px", marginBottom: "-8px"}}>
-          <h2>Channel Title: </h2>
-          <h2 style={{fontWeight: "100", marginLeft: "10px"}}>
-        {!editingChannelName ?
-          <div style={{cursor: "pointer"}}>
-              {userChName}
-          </div>
-          :
-          <input 
-            value={userChName}
-            onChange={inputHandler2}
-            ></input>
-          }
-          </h2>
-          {!editingChannelName ?
-          <AppRegistrationIcon 
-            style={{
-              marginTop: "24px",
-              marginLeft: "10px",
-              cursor: "poitner"
-              }}
-            onClick={() => setEditingChannelName(true)}
-            />
-            :
-            <CheckCircleIcon
-              style={{
-                marginTop: "24px",
-                marginLeft: "10px",
-                cursor: "poitner"
-                }}
-              onClick={() => {
-                setEditingChannelName(false);
-                handleSave();
-              }
-              }
-            />
-            }
-        </div>
-
-        {/* Channel Description */}
-        <div style={{display: "flex", height: "60px", marginBottom: "-10px"}}>
-          <h4>Description: </h4>
-          <h4 style={{fontWeight: "100", marginLeft: "10px"}}>
-        {!editingChannelDescription ?
-          <div style={{cursor: "pointer"}}>
-              {userChDes}
-          </div>
-          :
-          <input 
-            value={userChDes}
-            onChange={inputHandler3}
-            ></input>
-          }
-          </h4>
-          {!editingChannelDescription ?
-          <AppRegistrationIcon 
-            style={{
-              marginTop: "15px",
-              marginLeft: "10px",
-              cursor: "poitner"
-              }}
-            onClick={() => setEditingChannelDescription(true)}
-            />
-            :
-            <CheckCircleIcon
-              style={{
-                marginTop: "24px",
-                marginLeft: "10px",
-                cursor: "poitner"
-                }}
-              onClick={() => {
-                setEditingChannelDescription(false);
-                handleSave();
-              }
-              }
-            />
-            }
-        </div>
-
-        {/* Channel Tag */}
         <div style={{display: "flex", height: "60px", marginBottom: "20px"}}>
-          <h4>Tag: </h4>
-          <h4 style={{fontWeight: "100", marginLeft: "10px"}}>
-        {!editingChannelTag ?
-          <div style={{cursor: "pointer"}}>
-              {userChTag}
-          </div>
-          :
-          <FormControl style={{background: "white", width: "200px", marginTop: "-15px"}}>
-            <InputLabel>Categories</InputLabel>
-              <Select 
-              value={channelTag}
-              onChange={inputHandler4}
-              >
-                <MenuItem value={"Anime"}>Anime</MenuItem>
-                <MenuItem value={"Creative"}>Creative</MenuItem>
-                <MenuItem value={"Education"}>Education</MenuItem>
-                <MenuItem value={"Live"}>Live</MenuItem>
-                <MenuItem value={"Sports"}>Sports</MenuItem>
-                <MenuItem value={"Tech"}>Tech</MenuItem>
-              </Select>
-          </FormControl>
-          // <input 
-          //   value={userChTag}
-          //   onChange={inputHandler4}
-          //   ></input>
-          }
-          </h4>
-          {!editingChannelTag ?
-          <AppRegistrationIcon 
-            style={{
-              marginTop: "15px",
-              marginLeft: "10px",
-              cursor: "poitner"
-              }}
-            onClick={() => setEditingChannelTag(true)}
-            />
-            :
-            <CheckCircleIcon
-              style={{
-                marginTop: "24px",
-                marginLeft: "10px",
-                cursor: "poitner"
-                }}
-              onClick={() => {
-                setEditingChannelTag(false);
-                handleSave();
-              }
-              }
-            />
-            }
+          <h1>My handle is: </h1>
+          <Link href={`/streams/${userHan}`}><h1 style={{fontWeight: "100", marginLeft: "10px"}}>@{userHan}</h1></Link>
         </div>
-
         <FeatureBoxes>
           {streamingEnabled === true ? 
           <StreamingStatus>
@@ -411,10 +195,10 @@ export default function Profile () {
         }
 
         </FeatureBoxes>
-        {/* <button>Go LIVE</button> */}
+        <button>Go LIVE</button>
       </Col1>
       <Col2>
-      <h1>My Wallet Balance:</h1>
+      <h1>My Stream Info:</h1>
       <WalletBalanceWrapper>
         <WalletBalanceTokenIcon>
           <Image 
