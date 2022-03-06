@@ -55,15 +55,16 @@ const Container = styled.div`
 `;
 
 export default function Profile () {
-  const { logout, isAuthenticating } = useMoralis();
   const { 
     isAuthenticated, 
     user, 
     setUserData, 
     userError, 
     isUserUpdating,
-    refetchUserData
+    refetchUserData,
+    Moralis
   } = useMoralis();
+  const [numOfUsers, setNumOfUsers] = useState('');
 
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
@@ -76,6 +77,7 @@ export default function Profile () {
   const userAd = user?.get("ethAddress");
   const userUn = user?.get("username");
   const userHan = user?.get("handle");
+  console.log(user?.attributes.sessionToken)
   // const userStreamEnabled = user?.get("streamingEnabled")
   // const userW3ST = user?.get("w3sTokensEarned")
   // console.log(userW3ST);
@@ -108,12 +110,15 @@ export default function Profile () {
     setMonetizationEnabled(user?.get("monetizationEnabled"))
     // setW3sTokensEarned(user?.get("w3sTokensEarned"))
     setW3sTokensEarned(userW3ST)
-  }, [user])
+  }, [user]);
 
-  if (!isAuthenticated)
-  return (
-    <Home/>
-  );
+  // Moralis.Cloud.run('get_nr_users').then(res=> {
+  //   // JSON.stringify turns response into string
+  //   const users = JSON.stringify(res)
+  //   console.log(users)
+  //   setNumOfUsers(users)
+  // }).catch(err=> console.log(err))
+  
 
 
   return (
@@ -148,129 +153,20 @@ export default function Profile () {
         </div>
         <div style={{display: "flex", height: "60px", marginBottom: "20px"}}>
           <h1>My handle is: </h1>
-          <Link href={`/streams/${userHan}`}><h1 style={{fontWeight: "100", marginLeft: "10px"}}>@{userHan}</h1></Link>
-        </div>
-        <FeatureBoxes>
-          {streamingEnabled === true ? 
-          <StreamingStatus>
-            <StatusWrapper>
-              <StatusInnerIcon>
-                <VideoCameraFrontIcon 
-                // color='success'
-                htmlColor="#FFEE62"
-                fontSize="large" style={{
-                  marginRight: "10px", 
-                  filter: "brightness(1)"
-                  }}/>
-              </StatusInnerIcon>
-              <StatusInnerText>
-                Streaming is Enabled
-              </StatusInnerText>
-            </StatusWrapper>
-          </StreamingStatus>
+          {userHan === undefined ? 
+          <></>
           :
-          <StreamingStatus>
-            Streaming is Not Enabled
-          </StreamingStatus>
+          <Link href={`/streams/${userHan}`} passHref><h1 style={{fontWeight: "100", marginLeft: "10px"}}>@{userHan}</h1></Link>
         }
-
-        {monetizationEnabled === true ? 
-          <StreamingStatus>
-            <StatusWrapper>
-              <StatusMonetizationIcon>
-                <Image 
-                src={PolygonMaticLogo}
-                alt="Polygon Matic Logo"                
-                />
-              </StatusMonetizationIcon>
-              <StatusInnerText>
-                Monetization is Enabled
-              </StatusInnerText>
-            </StatusWrapper>
-          </StreamingStatus>
-          :
-          <StreamingStatus>
-            Monetization is Not Enabled
-          </StreamingStatus>
-        }
-
-        </FeatureBoxes>
-        <button>Go LIVE</button>
+          </div>
+       
       </Col1>
       <Col2>
       <h1>My Stream Info:</h1>
       <WalletBalanceWrapper>
-        <WalletBalanceTokenIcon>
-          <Image 
-          src={PolygonMaticLogo}
-          alt="Polygon Matic Logo"                
-          />
-        </WalletBalanceTokenIcon>
-        <WalletBalanceTokenNum>
-          {/* token balance goes here */}
-          {userW3ST}
-        </WalletBalanceTokenNum>
-        <Snackbar 
-          open={open} 
-          anchorOrigin={{ 
-            vertical: 'top',
-            horizontal: 'right', 
-        }}
-          autoHideDuration={6000} 
-          onClose={handleClose}
-          style={{marginTop: "-50px"}}
-          >
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          W3S Tokens Synced!
-        </Alert>
-      </Snackbar>
-        <SyncWallet 
-            onClick={() => {
-              refetchUserData();
-              handleClick();
-              // setW3sTokensEarned();
-              // Router.reload()
-            }
-            } 
-            disabled={isUserUpdating}>
-              <SyncWalletInner>
-                <UpdateIcon style={{marginLeft: "5px", marginTop: "4px", marginBottom: "-4px", position: "relative"}}/>
-                Sync
-              </SyncWalletInner>
-        </SyncWallet>
-      </WalletBalanceWrapper>
+        Past streams
 
-      {/* States of Deposit */}
-      
-        {userW3ST > 9 ? 
-          <WithdrawStatusEnabled>
-            <StatusWrapper>
-              <StatusMonetizationIcon>
-                <Image 
-                src={PolygonMaticLogo}
-                alt="Polygon Matic Logo"                
-                />
-              </StatusMonetizationIcon>
-              <StatusInnerText>
-                Withdraw Your W3S
-              </StatusInnerText>
-            </StatusWrapper>
-          </WithdrawStatusEnabled>
-          :
-          <WithdrawStatusDisabled>
-            <StatusWrapper>
-              <StatusMonetizationIcon>
-                <Image 
-                src={PolygonMaticLogo}
-                alt="Polygon Matic Logo"                
-                />
-              </StatusMonetizationIcon>
-              <StatusInnerText>
-                You Need 10+ W3S
-              </StatusInnerText>
-            </StatusWrapper>
-          </WithdrawStatusDisabled>
-        }
+      </WalletBalanceWrapper>
       
       </Col2>
     

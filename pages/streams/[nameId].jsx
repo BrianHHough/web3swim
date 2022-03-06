@@ -19,15 +19,28 @@ export default function Streams() {
     userError, 
     isUserUpdating,
     refetchUserData,
-    Moralis
+    Moralis,
+    Session,
+    currentUser,
+    currentWallet
   } = useMoralis();
   const [minutesStreamed, setMinutesStreamed] = useState(0);
+  const userSesh = user?.attributes.sessionToken;
+
+  // const accounts = web3.eth?.getAccounts();
+  // const account = accounts[0];
+  // console.log(JSON.stringify(accounts))
 
   const handleProgress = (secs) => {
     setMinutesStreamed(secs);
   };
 
   const minutesStreamedCalc = (minutesStreamed / 60).toFixed(1);
+  // console.log(Moralis.User.current())
+  // console.log(user.attributes.sessionToken)
+  console.log(user)
+  console.log(user?.get("ethAddress"))
+  // console.log(account?.account)
   
   
 
@@ -51,23 +64,25 @@ export default function Streams() {
       {isAuthenticated ? 
       <>
       {userHan === dynamicHandle ?
+      // I am the streamer
       <>
         <h1>Your stream is live: @{userHan}!</h1>
+        <p>You&apos;re live right now!</p>
       </>
       :
+      // I'm not the streamer
       <>
         <h1>Welcome to @{dynamicHandle}&apos;s stream</h1>
+        <p>You&apos;re watching their stream live!</p>
+        {/* {userHan} */}
       </>
       }
-      <>
-        
-      </>
-      {/* <h3> Your account is: {userAd}</h3> */}
       <ScrollWindowCon>
         <FeaturedLiveCon>
             <FeaturedLive>
                 <ReactPlayer
-                    url="https://www.youtube.com/watch?v=eGUpw1SRh5s"
+                    // url="https://www.youtube.com/watch?v=eGUpw1SRh5s"
+                    url=""
                     width="100%"
                     height="100%"
                     controls={true}
