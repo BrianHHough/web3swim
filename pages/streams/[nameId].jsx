@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { useRouter } from "next/router";
+import { asPath, pathname, useRouter } from "next/router";
 import { useMoralis } from "react-moralis";
 import {
     ScrollWindowCon,
@@ -22,6 +22,7 @@ export default function Streams() {
     Moralis
   } = useMoralis();
   const [minutesStreamed, setMinutesStreamed] = useState(0);
+
   const handleProgress = (secs) => {
     setMinutesStreamed(secs);
   };
@@ -37,11 +38,30 @@ export default function Streams() {
     });
 
     const userAd = user?.get("ethAddress");
+    const userHan = user?.get("handle");
+    const dynamicHandle = router.query.nameId;
     // const currentUser = Moralis.User.current();
+    console.log(router.asPath) // renders: /streams/brianhhough
+    console.log(router.pathname) // renders: /streams/[nameId]
+    console.log(router.query.nameId) // renders: brianhhough
+    
 
   return (
-    <>
-      <h1>Welcome to my stream</h1>
+    <>  
+      {isAuthenticated ? 
+      <>
+      {userHan === dynamicHandle ?
+      <>
+        <h1>Your stream is live: @{userHan}!</h1>
+      </>
+      :
+      <>
+        <h1>Welcome to @{dynamicHandle}&apos;s stream</h1>
+      </>
+      }
+      <>
+        
+      </>
       {/* <h3> Your account is: {userAd}</h3> */}
       <ScrollWindowCon>
         <FeaturedLiveCon>
@@ -65,5 +85,11 @@ export default function Streams() {
         </FeaturedLiveCon>
     </ScrollWindowCon>
     </>
+    : 
+    <>
+    you need to login
+    </>
+  }
+  </>
   );
 }
