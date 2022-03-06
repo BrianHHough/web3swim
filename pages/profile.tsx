@@ -13,6 +13,7 @@ import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 import PolygonMaticLogo from "../assets/polygon-matic_Logo.png"
 import Router from 'next/router'
 import UpdateIcon from '@mui/icons-material/Update';
+import Link from 'next/link';
 
 import {
   ProfileOuterCon,
@@ -93,7 +94,6 @@ export default function Profile () {
 
   const handleSave = () => {
     setUserData({
-        username: username === "" ? undefined : username,
         email: email === "" ? undefined : email,
         handle: handle === "" ? undefined : handle
     })
@@ -106,7 +106,8 @@ export default function Profile () {
     setHandle(user?.get("handle"))
     setStreamingEnabled(user?.get("streamingEnabled"))
     setMonetizationEnabled(user?.get("monetizationEnabled"))
-    setW3sTokensEarned(user?.get("w3sTokensEarned"))
+    // setW3sTokensEarned(user?.get("w3sTokensEarned"))
+    setW3sTokensEarned(userW3ST)
   }, [user])
 
   if (!isAuthenticated)
@@ -147,7 +148,7 @@ export default function Profile () {
         </div>
         <div style={{display: "flex", height: "60px", marginBottom: "20px"}}>
           <h1>My handle is: </h1>
-          <h1 style={{fontWeight: "100", marginLeft: "10px"}}>@{userHan}</h1>
+          <Link href={`/streams/${userHan}`}><h1 style={{fontWeight: "100", marginLeft: "10px"}}>@{userHan}</h1></Link>
         </div>
         <FeatureBoxes>
           {streamingEnabled === true ? 
@@ -227,6 +228,7 @@ export default function Profile () {
             onClick={() => {
               refetchUserData();
               handleClick();
+              // setW3sTokensEarned();
               // Router.reload()
             }
             } 
@@ -240,7 +242,7 @@ export default function Profile () {
 
       {/* States of Deposit */}
       
-      {w3sTokensEarned < 10 ? 
+      {/* {w3sTokensEarned < 10 ? 
           <WithdrawStatusDisabled>
             <StatusWrapper>
               <StatusMonetizationIcon>
@@ -256,8 +258,8 @@ export default function Profile () {
           </WithdrawStatusDisabled>
           :
           null
-        }
-        {w3sTokensEarned >= 10 ? 
+        } */}
+        {userW3ST > 9 ? 
           <WithdrawStatusEnabled>
             <StatusWrapper>
               <StatusMonetizationIcon>
@@ -272,7 +274,19 @@ export default function Profile () {
             </StatusWrapper>
           </WithdrawStatusEnabled>
           :
-          null
+          <WithdrawStatusDisabled>
+            <StatusWrapper>
+              <StatusMonetizationIcon>
+                <Image 
+                src={PolygonMaticLogo}
+                alt="Polygon Matic Logo"                
+                />
+              </StatusMonetizationIcon>
+              <StatusInnerText>
+                You Need 10+ W3S
+              </StatusInnerText>
+            </StatusWrapper>
+          </WithdrawStatusDisabled>
         }
       
       </Col2>
