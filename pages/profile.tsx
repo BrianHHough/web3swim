@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 import ThemeToggle from "../components/Theme/ThemeToggle";
 import HomeHero from "../components/Home";
 import Blockie from "../components/Profile/Blockies";
-import { useMoralis } from "react-moralis";
+import { useMoralis, useWeb3Transfer } from "react-moralis";
 import dynamic from "next/dynamic";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import VideoCameraFrontIcon from "@mui/icons-material/VideoCameraFront";
@@ -47,6 +47,9 @@ import {
   InputLabel,
   makeStyles,
 } from "@mui/material";
+
+import BalanceABI from "../build/contracts/Web3SwimBalance.json";
+import { w3sBalanceAddress, w3sTokenAddress } from "constants/config";
 
 const Home = dynamic(() => import("./index"));
 
