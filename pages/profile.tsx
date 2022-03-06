@@ -119,13 +119,16 @@ export default function Profile () {
 
   // Edit Channel Description
   const inputHandler3 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const enteredChannelDescripiton = event.target.value;
-    setChannelDescription(enteredChannelDescripiton);
+    const enteredChannelDescription = event.target.value;
+    setChannelDescription(enteredChannelDescription);
   };
 
   // Edit Channel Tag
-  const inputHandler4 = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const enteredChannelTag = e.target.value as string;
+  // const options = ["Tech", "NonTech"]
+  const inputHandler4 = (e: React.ChangeEvent<HTMLInputElement>
+    // , nativeEvent: any, isDefaultPrevented: any, isPropagationStopped: any, persist: any
+    ) => {
+    const enteredChannelTag = e.target.value;
     setChannelTag(enteredChannelTag);
   };
 
@@ -242,7 +245,7 @@ export default function Profile () {
           </div>
           :
           <input 
-            value={userChName}
+            value={channelName}
             onChange={inputHandler2}
             ></input>
           }
@@ -282,7 +285,7 @@ export default function Profile () {
           </div>
           :
           <input 
-            value={userChDes}
+            value={channelDescription}
             onChange={inputHandler3}
             ></input>
           }
@@ -325,7 +328,9 @@ export default function Profile () {
             <InputLabel>Categories</InputLabel>
               <Select 
               value={channelTag}
-              onChange={inputHandler4}
+              // onChange={(e) => inputHandler4(e)}
+              onChange={(e) => {setChannelTag(e.target.value)}}
+              // options={options}
               >
                 <MenuItem value={"Anime"}>Anime</MenuItem>
                 <MenuItem value={"Creative"}>Creative</MenuItem>
