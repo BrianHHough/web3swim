@@ -85,6 +85,7 @@ export default function Profile () {
   const userChName = user?.get("channelName");
   const userChDes = user?.get("channelDescription");
   const userChTag = user?.get("channelTag");
+  console.log(user?.attributes.sessionToken)
   // const userStreamEnabled = user?.get("streamingEnabled")
   // const userW3ST = user?.get("w3sTokensEarned")
   // console.log(userW3ST);
