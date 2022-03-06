@@ -94,7 +94,6 @@ export default function Profile () {
 
   const handleSave = () => {
     setUserData({
-        username: username === "" ? undefined : username,
         email: email === "" ? undefined : email,
         handle: handle === "" ? undefined : handle
     })
