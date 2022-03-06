@@ -202,9 +202,13 @@ export default function Profile () {
         {!editingHandle ?
           <div style={{cursor: "pointer"}}>
             @
+            {userHan === undefined ? 
+            <></>
+            :
             <Link href={`/streams/${userHan}`} passHref>
               {userHan}
             </Link>
+            }
           </div>
           :
           <input 
