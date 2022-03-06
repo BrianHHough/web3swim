@@ -1,0 +1,2 @@
+export const w3sTokenAddress = "0x221933EAC4e90999c681c7De6926258BF4E91453";
+export const w3sBalanceAddress = "0x5FBB64B5B32E8018602534AED32c6f0c124db101";
