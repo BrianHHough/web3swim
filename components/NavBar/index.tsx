@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useMoralis } from "react-moralis";
 import MetaMaskLogo from "../../assets/MetaMask_Logo.webp"
 import Blockie from "../../components/Profile/Blockies"
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
 
 import {
   NavBarCon,
@@ -30,7 +32,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import SlowMotionVideoIcon from '@mui/icons-material/SlowMotionVideo';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -67,6 +69,20 @@ function NavBar(): JSX.Element[] | any {
   
       setOpen(false);
     };
+
+
+    // PopUp 
+    const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
+    const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const handlePopoverClose = () => {
+      setAnchorEl(null);
+    };
+
+    const openPopup = Boolean(anchorEl);
 
   return (
     <>
@@ -154,16 +170,52 @@ function NavBar(): JSX.Element[] | any {
           </>
           : 
           <>
+          <Link href="/golive" passHref>
           <NavItemButton 
-            id="Logout Button"
-            onClick={() => logout()}
-              disabled={isAuthenticating}
-              authError={() => handleClick()}  
+            id="Go Live Button"
+            
+              aria-owns={openPopup ? 'mouse-over-popover' : undefined}
+              aria-haspopup="true"
+              onMouseEnter={handlePopoverOpen}
+              onMouseLeave={handlePopoverClose}
           >
             <MetaMaskLogoCon>
-              <LogoutIcon fontSize='large' style={{color: "black"}}/>
+              <SlowMotionVideoIcon 
+                fontSize='large' 
+                style={{color: "black", 
+                right: "2px",
+                position: "relative",
+                top: "2px"
+              }}
+                />
             </MetaMaskLogoCon>
+            <Popover
+              id="mouse-over-popover"
+              sx={{
+                pointerEvents: 'none',
+              }}
+              open={openPopup}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              onClose={handlePopoverClose}
+              disableRestoreFocus
+              style={{
+                marginTop: "45px"
+              }}
+            >
+              <Typography sx={{ p: 1 }}>Go Live</Typography>
+            </Popover>
           </NavItemButton>
+          </Link>
+
+          
 
           <Link href="/profile" passHref>
             <NavItemButtonProfile>
@@ -183,6 +235,16 @@ function NavBar(): JSX.Element[] | any {
               </NavItemText>
             </NavItemButtonProfile>
           </Link>
+          <NavItemButton 
+            id="Logout Button"
+            onClick={() => logout()}
+              disabled={isAuthenticating}
+              authError={() => handleClick()} 
+          >
+            <MetaMaskLogoCon>
+              <LogoutIcon fontSize='large' style={{color: "black"}}/>
+            </MetaMaskLogoCon>
+          </NavItemButton>
           </>
           }
           {/* <div>Test</div> */}
