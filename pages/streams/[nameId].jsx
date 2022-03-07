@@ -81,8 +81,9 @@ export default function Streams() {
         <FeaturedLiveCon>
             <FeaturedLive>
                 <ReactPlayer
-                    // url="https://www.youtube.com/watch?v=eGUpw1SRh5s"
-                    url=""
+                    // url="https://cdn.livepeer.com/hls/b3b2vu0v69tz6rem/index.m3u8"
+                    url={`https://cdn.livepeer.com/hls/${currentStreamPlaybackId}/index.m3u8`}
+                    // url=""
                     width="100%"
                     height="100%"
                     controls={true}
