@@ -1,4 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![header-image](./public/web3swim-banner-image.png)
+
+# Web3Swim
+
+### Tools Utilized:
+* **Front-End:** NEXTjs with TypeScript
+* **Back-End:** Solidity (Smart Contracts) + Moralis (Database) + Thirdweb (Middleware)
+* **Blockchain:** Polygon (ERC20 Coin Contract + ERC721 NFT Contract)
+* **Video Streaming:** Livepeer (Decentralized Streaming)
+* **Storage:** IPFS & Filebase (NFTs)
+
+## Watch Our Video
+![web3swim video](https://i.vimeocdn.com/video/1388936696-bcbee6764c4e5c270c6bf47e795059be30d9a32782907f50233f739c9b6a54ab-d?mw=1100&mh=464)
+[View the video on Vimeo](https://vimeo.com/685326701/807ea6509e)
+
+## OpenSea Collection
+### ![OpenSeaCollection](https://lh3.googleusercontent.com/55ltjtMGyMCQp90LjJHO2QPDhkhaEmTt2ABssovHO7TJMF5re9nbXhUW_UHxIFg2beS3Ex5xQLXNXk1vRBAJbEWYMehIfmh6KOntYA=s130)
+[View on OpenSea (Polygon x IPFS x Filebase)](https://testnets.opensea.io/collection/web3swim-nft)
 
 ## Getting Started
 
