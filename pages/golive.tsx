@@ -93,12 +93,14 @@ export default function GoLive() {
   const [w3sTokensEarned, setW3sTokensEarned] = useState(0);
   const userW3ST = user?.get("w3sTokensEarned");
   const [currentStream, setCurrentStream] = useState(0);
+  const [currentStreamStreamKey, setCurrentStreamStreamKey] = useState();
+  const [currentStreamPlaybackId, setCurrentStreamPlaybackId] = useState();
 
   const userAd = user?.get("ethAddress");
   const userUn = user?.get("username");
   const userHan = user?.get("handle");
   const userCurStr = user?.get("currentStream");
-  console.log(userCurStr)
+  // console.log(userCurStr)
   // console.log(user?.attributes.sessionToken)
   // const userStreamEnabled = user?.get("streamingEnabled")
   // const userW3ST = user?.get("w3sTokensEarned")
@@ -133,6 +135,9 @@ export default function GoLive() {
     setStreamingEnabled(user?.get("streamingEnabled"))
     setMonetizationEnabled(user?.get("monetizationEnabled"))
     setCurrentStream(user?.get("currentStream"));
+    setCurrentStreamStreamKey(user?.get("currentStreamStreamKey"));
+    setCurrentStreamPlaybackId(user?.get("currentStreamPlaybackId"));
+    console.log(currentStreamStreamKey)
     // setW3sTokensEarned(user?.get("w3sTokensEarned"))
     // setW3sTokensEarned(userW3ST)
   }, [user]);
@@ -242,12 +247,47 @@ export default function GoLive() {
       </Col1>
       <Col2>
         <h1>{currentStream}</h1>
-        <button onClick={createStream}>Create Stream</button>
+        <div style={{display: "flex"}}>
+          <button onClick={createStream}>Create Stream</button>
+        <Snackbar 
+          open={open} 
+          anchorOrigin={{ 
+            vertical: 'top',
+            horizontal: 'right', 
+        }}
+          autoHideDuration={6000} 
+          onClose={handleClose}
+          style={{marginTop: "-50px"}}
+          >
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Stream Credentials Activated!
+        </Alert>
+      </Snackbar>
+        <SyncWallet 
+          onClick={() => {
+            refetchUserData();
+            handleClick();
+            // setW3sTokensEarned();
+            // Router.reload()
+          }
+          } 
+          disabled={isUserUpdating}>
+            <SyncWalletInner>
+              <UpdateIcon style={{marginLeft: "5px", marginTop: "4px", marginBottom: "-4px", position: "relative"}}/>
+              Sync
+            </SyncWalletInner>
+        </SyncWallet>
+        </div>
         <h4>StreamKey: {streamKey}</h4>
+        {/* <h4>StreamKey: {currentStreamStreamKey}</h4> */}
         <h4>PlaybackId: {playbackId}</h4>
-      
+        {console.log(playbackId)}
+        {/* <h4>PlaybackId: {currentStreamPlaybackId}</h4> */}
+        <h1>Re-use your credentials</h1>
+        <p>We like recycling :)</p>
+        <h4>StreamKey: {currentStreamStreamKey}</h4>
+        <h4>PlaybackId: {currentStreamPlaybackId}</h4>
       </Col2>
-    
     </>
     :
     <div>Try Logging in</div>
