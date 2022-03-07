@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { asPath, pathname, useRouter } from "next/router";
 import { useMoralis } from "react-moralis";
 import {
@@ -25,6 +25,7 @@ export default function Streams() {
     currentWallet
   } = useMoralis();
   const [minutesStreamed, setMinutesStreamed] = useState(0);
+  const [currentStreamPlaybackId, setCurrentStreamPlaybackId] = useState(null);
   const userSesh = user?.attributes.sessionToken;
 
   // const accounts = web3.eth?.getAccounts();
@@ -41,6 +42,10 @@ export default function Streams() {
   console.log(user)
   console.log(user?.get("ethAddress"))
   // console.log(account?.account)
+
+  useEffect(() => {
+    setCurrentStreamPlaybackId(user?.get("currentStreamPlaybackId"))
+  }, [user])
   
   
 
@@ -80,9 +85,12 @@ export default function Streams() {
       <ScrollWindowCon>
         <FeaturedLiveCon>
             <FeaturedLive>
+                {/* {currentStreamPlaybackId === user?.get("currentStreamPlaybackId") ? */}
+                {userHan === dynamicHandle ?
                 <ReactPlayer
-                    // url="https://www.youtube.com/watch?v=eGUpw1SRh5s"
-                    url=""
+                    // url="https://cdn.livepeer.com/hls/b3b2vu0v69tz6rem/index.m3u8"
+                    url={`https://cdn.livepeer.com/hls/${currentStreamPlaybackId}/index.m3u8`}
+                    // url=""
                     width="100%"
                     height="100%"
                     controls={true}
@@ -91,7 +99,22 @@ export default function Streams() {
                     onProgress={(e) => handleProgress(e.playedSeconds)}
                 >
                 </ReactPlayer>
+                : 
+                <ReactPlayer
+                    // url="https://cdn.livepeer.com/hls/b3b2vu0v69tz6rem/index.m3u8"
+                    url={`https://cdn.livepeer.com/hls/${currentStreamPlaybackId}/index.m3u8`}
+                    // url=""
+                    width="100%"
+                    height="100%"
+                    controls={true}
+                    // playing={false}
+                    // muted={true}
+                    onProgress={(e) => handleProgress(e.playedSeconds)}
+                >
+                </ReactPlayer>
+              }
             </FeaturedLive>
+            {console.log(currentStreamPlaybackId)}
             {console.log(minutesStreamed)}
             <div>
               <h3>Minutes watched: {minutesStreamedCalc}</h3>
